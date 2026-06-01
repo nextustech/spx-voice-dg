@@ -18,7 +18,10 @@ from api.utils.common import get_backend_endpoints
 
 from .config import VobizConfigurationRequest, VobizConfigurationResponse
 from .provider import VobizProvider
-from .transport import create_transport
+async def create_transport(*args, **kwargs):
+    from .transport import create_transport as _create_transport
+
+    return await _create_transport(*args, **kwargs)
 
 VOBIZ_API_BASE_URL = "https://api.vobiz.ai/api"
 
@@ -170,3 +173,4 @@ __all__ = [
     "VobizProvider",
     "create_transport",
 ]
+

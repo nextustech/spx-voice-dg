@@ -19,7 +19,7 @@ from pipecat.frames.frames import (
     TTSSpeakFrame,
 )
 from pipecat.services.llm_service import FunctionCallParams
-from pipecat.utils.enums import EndTaskReason
+from api.utils.runtime_enums import EndTaskReason
 
 from api.db import db_client
 from api.enums import ToolCategory, WorkflowRunMode

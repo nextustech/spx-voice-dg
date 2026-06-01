@@ -17,7 +17,7 @@ from loguru import logger
 from pipecat.frames.frames import (
     LLMMessagesAppendFrame,
 )
-from pipecat.utils.enums import EndTaskReason
+from api.utils.runtime_enums import EndTaskReason
 
 if TYPE_CHECKING:
     from api.services.workflow.pipecat_engine import PipecatEngine

@@ -23,7 +23,7 @@ from pipecat.frames.frames import (
 )
 from pipecat.pipeline.task import PipelineTask
 from pipecat.processors.audio.audio_buffer_processor import AudioBufferProcessor
-from pipecat.utils.enums import EndTaskReason
+from api.utils.runtime_enums import EndTaskReason
 
 
 async def _capture_call_event(

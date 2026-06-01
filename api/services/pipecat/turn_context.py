@@ -8,7 +8,7 @@ propagate through asyncio.create_task() calls.
 import asyncio
 from typing import Dict, Optional
 
-from pipecat.utils.run_context import turn_var
+from api.utils.run_context import turn_var
 
 
 class TurnContextManager:

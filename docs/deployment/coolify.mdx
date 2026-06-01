@@ -70,7 +70,7 @@ SINGLE_ORGANIZATION_MODE=true
 MANAGED_ORGANIZATION_PROVIDER_ID=managed_single_org
 ENABLE_TELEMETRY=false
 DISABLE_HOSTED_CLOUD=true
-VOICE_RUNTIME=pipecat
+VOICE_RUNTIME=livekit
 ```
 
 Coolify may also provide a generated service URL for the UI. Setting `APP_URL`
@@ -93,17 +93,9 @@ https://voice.example.com
 The first user who signs up becomes the bootstrap superadmin. After that, public
 signup remains disabled unless you set `ALLOW_PUBLIC_SIGNUP=true`.
 
-## 5. Optional LiveKit Setup
+## 5. LiveKit Setup
 
-SPX Voice can run with Pipecat or LiveKit.
-
-For browser testing and simple local usage, keep:
-
-```env
-VOICE_RUNTIME=pipecat
-```
-
-For LiveKit, provide:
+Provide:
 
 ```env
 VOICE_RUNTIME=livekit

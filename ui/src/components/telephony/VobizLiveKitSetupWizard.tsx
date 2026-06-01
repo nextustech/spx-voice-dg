@@ -64,7 +64,7 @@ type LiveKitSettings = Pick<
   | "livekit_token_ttl_seconds"
   | "livekit_sip_max_call_duration_seconds"
 > & {
-  voice_runtime: "pipecat" | "livekit";
+  voice_runtime: "livekit";
 };
 
 interface FormState {
@@ -89,7 +89,7 @@ interface FormState {
 const NO_WORKFLOW = "__none__";
 
 const emptySettings: LiveKitSettings = {
-  voice_runtime: "pipecat",
+  voice_runtime: "livekit",
   livekit_url: "",
   livekit_client_url: "",
   livekit_api_key: "",
@@ -162,10 +162,7 @@ export function VobizLiveKitSetupWizard({
       const settings = {
         ...emptySettings,
         ...settingsResponse.data,
-        voice_runtime:
-          settingsResponse.data?.voice_runtime === "livekit"
-            ? "livekit"
-            : "pipecat",
+        voice_runtime: "livekit",
       };
       setSecretConfigured(Boolean(settings.livekit_api_secret_configured));
       setForm((current) => ({

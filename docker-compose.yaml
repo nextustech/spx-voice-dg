@@ -175,9 +175,8 @@ services:
       TURN_SECRET: "${TURN_SECRET:-}"
       FORCE_TURN_RELAY: "${FORCE_TURN_RELAY:-false}"
 
-      # Voice runtime toggle. Keep the default as Pipecat; set VOICE_RUNTIME=livekit
-      # with your self-hosted LiveKit URL/key/secret to run the LiveKit worker.
-      VOICE_RUNTIME: "${VOICE_RUNTIME:-pipecat}"
+      # Voice runtime toggle. The OSS default is LiveKit.
+      VOICE_RUNTIME: "${VOICE_RUNTIME:-livekit}"
       LIVEKIT_URL: "${LIVEKIT_URL:-}"
       LIVEKIT_CLIENT_URL: "${LIVEKIT_CLIENT_URL:-}"
       LIVEKIT_API_KEY: "${LIVEKIT_API_KEY:-}"

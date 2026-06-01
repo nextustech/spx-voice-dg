@@ -1,10 +1,10 @@
 # Upstream Compatibility
 
-SPX Voice is a public, cleaned fork of the Dograh voice-agent codebase. The
+SPX Voice is a public, cleaned fork of an upstream voice-agent codebase. The
 product name, default runtime settings, public documentation, and client-specific
 behavior should be SPX Voice. At the same time, this repo should stay friendly
-to upstream Dograh updates so security fixes, telephony improvements, workflow
-changes, and SDK/codegen improvements can be imported with minimal friction.
+to upstream updates so security fixes, telephony improvements, workflow changes,
+and SDK/codegen improvements can be imported with minimal friction.
 
 ## Compatibility Goals
 
@@ -13,7 +13,7 @@ changes, and SDK/codegen improvements can be imported with minimal friction.
   without improving public SPX Voice behavior.
 - Keep public SPX Voice branding clean: no client names, private recordings,
   transcripts, phone numbers, or deployment secrets in committed files.
-- Document intentional Dograh-derived internals so future contributors do not
+- Document intentional upstream-derived internals so future contributors do not
   rename them blindly and make future upstream imports harder.
 
 ## What Can Stay upstream-compatible
@@ -21,12 +21,12 @@ changes, and SDK/codegen improvements can be imported with minimal friction.
 Some internal names may remain upstream-compatible until there is a deliberate
 migration plan:
 
-- Database fields and serialized API fields such as `dograh_token_usage` or
-  `quota_dograh_tokens`, because renaming them can require migrations, generated
-  client changes, and UI compatibility handling.
-- SDK package/import paths such as `dograh_sdk` or `@dograh/sdk`, until SPX Voice
-  publishes replacement SDK packages and compatibility shims.
-- Pipecat fork integration classes that refer to Dograh-specific service names,
+- Database fields and serialized API fields inherited from upstream, because
+  renaming them can require migrations, generated client changes, and UI
+  compatibility handling.
+- SDK package/import paths inherited from upstream, until SPX Voice publishes
+  replacement SDK packages and compatibility shims.
+- Legacy integration classes that refer to upstream-specific service names,
   especially where those names match upstream module imports.
 - Helper function names used across routes/tests, such as quota checks, when
   renaming would produce a large mechanical diff with no behavior change.
@@ -43,7 +43,8 @@ Always clean these before open-source release or upstream-sync commits:
 - Real phone numbers, recordings, raw transcripts, batch outputs, credentials,
   local `.tmp` data, and generated audio chunks.
 - Hardcoded production URLs, buckets, webhook endpoints, or account IDs.
-- Product-facing text that tells users this is Dograh instead of SPX Voice.
+- Product-facing text that tells users this is the upstream product instead of
+  SPX Voice.
 - Default room prefixes, agent names, telemetry names, or storage prefixes that
   include a private client or old product brand.
 
@@ -67,13 +68,13 @@ docker compose -f docker-compose.yaml -f docker-compose.dev.yaml config -q
 python -m py_compile api/app.py
 ```
 
-When a Dograh change conflicts with SPX Voice changes, prefer preserving the
+When an upstream change conflicts with SPX Voice changes, prefer preserving the
 SPX Voice public surface and adapting the upstream implementation behind it.
 
 ## Agent Guidance
 
-Future agents should not treat every `dograh` string as a bug. Classify each
-hit first:
+Future agents should classify upstream-compatibility strings before changing
+them:
 
 - **Public branding leak**: rename to SPX Voice.
 - **Private/client leak**: remove or replace with a neutral example.

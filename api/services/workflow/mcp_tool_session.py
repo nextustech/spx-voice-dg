@@ -10,13 +10,21 @@ dead MCP server.
 from __future__ import annotations
 
 import asyncio
+from dataclasses import dataclass
 from datetime import timedelta
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Set
 
 from loguru import logger
 from mcp.client.session_group import StreamableHttpParameters
-from pipecat.adapters.schemas.function_schema import FunctionSchema
-from pipecat.services.mcp_service import MCPClient
+try:
+    from pipecat.adapters.schemas.function_schema import FunctionSchema
+except ModuleNotFoundError:
+    @dataclass
+    class FunctionSchema:
+        name: str
+        description: str
+        properties: dict[str, Any]
+        required: list[str]
 
 from api.services.workflow.tools.mcp_tool import namespace_function_name
 from api.utils.credential_auth import build_auth_header
@@ -71,7 +79,7 @@ class McpToolSession:
         self._timeout_secs = timeout_secs
         self._sse_read_timeout_secs = sse_read_timeout_secs
 
-        self._client: Optional[MCPClient] = None
+        self._client: Optional[Any] = None
         self._session: Any = None  # mcp.ClientSession (read once after start)
         self._schemas: List[FunctionSchema] = []
         # namespaced LLM name -> original MCP tool name
@@ -82,6 +90,8 @@ class McpToolSession:
         """Connect, initialize, and cache the tool list. Never raises —
         on any failure the session is marked unavailable."""
         try:
+            from pipecat.services.mcp_service import MCPClient
+
             params = build_streamable_http_params(
                 url=self._url,
                 credential=self._credential,

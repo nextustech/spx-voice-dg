@@ -14,7 +14,7 @@ from pipecat.pipeline.task import PipelineTask
 from pipecat.processors.aggregators.llm_context import LLMContext
 from pipecat.services.llm_service import FunctionCallParams
 from pipecat.services.settings import LLMSettings
-from pipecat.utils.enums import EndTaskReason
+from api.utils.runtime_enums import EndTaskReason
 
 from api.db import db_client
 from api.enums import ToolCategory

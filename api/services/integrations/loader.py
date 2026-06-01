@@ -3,6 +3,8 @@ from __future__ import annotations
 import importlib
 import pkgutil
 
+from loguru import logger
+
 _INTERNAL_MODULES = {"base", "loader", "registry"}
 _loaded = False
 
@@ -16,6 +18,15 @@ def ensure_integrations_loaded() -> None:
     for module_info in pkgutil.iter_modules(package.__path__):
         if module_info.name in _INTERNAL_MODULES:
             continue
-        importlib.import_module(f"{package.__name__}.{module_info.name}")
+        try:
+            importlib.import_module(f"{package.__name__}.{module_info.name}")
+        except ModuleNotFoundError as exc:
+            if exc.name and exc.name.startswith("pipecat"):
+                logger.debug(
+                    f"Skipping integration {module_info.name!r}; optional Pipecat "
+                    f"dependency is unavailable: {exc}"
+                )
+                continue
+            raise
 
     _loaded = True

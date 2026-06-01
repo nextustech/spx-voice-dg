@@ -10,7 +10,7 @@ interface AppConfig {
     turnEnabled: boolean;
     forceTurnRelay: boolean;
     hostedServicesEnabled: boolean;
-    voiceRuntime: 'pipecat' | 'livekit';
+    voiceRuntime: 'livekit';
     livekitEnabled: boolean;
 }
 
@@ -28,7 +28,7 @@ const defaultConfig: AppConfig = {
     turnEnabled: false,
     forceTurnRelay: false,
     hostedServicesEnabled: false,
-    voiceRuntime: 'pipecat',
+    voiceRuntime: 'livekit',
     livekitEnabled: false,
 };
 
@@ -55,7 +55,7 @@ export function AppConfigProvider({ children }: { children: ReactNode }) {
                 turnEnabled: Boolean(data.turnEnabled),
                 forceTurnRelay: Boolean(data.forceTurnRelay),
                 hostedServicesEnabled: Boolean(data.hostedServicesEnabled),
-                voiceRuntime: data.voiceRuntime === 'livekit' ? 'livekit' : 'pipecat',
+                voiceRuntime: 'livekit',
                 livekitEnabled: Boolean(data.livekitEnabled),
             });
         } catch {

@@ -15,7 +15,7 @@ export async function GET() {
   let turnEnabled = false;
   let forceTurnRelay = false;
   let hostedServicesEnabled = false;
-  let voiceRuntime: "pipecat" | "livekit" = "pipecat";
+  let voiceRuntime: "livekit" = "livekit";
   let livekitEnabled = false;
 
   try {
@@ -32,7 +32,7 @@ export async function GET() {
       turnEnabled = Boolean(data.turn_enabled);
       forceTurnRelay = Boolean(data.force_turn_relay);
       hostedServicesEnabled = Boolean(data.hosted_services_enabled);
-      voiceRuntime = data.voice_runtime === "livekit" ? "livekit" : "pipecat";
+      voiceRuntime = "livekit";
       livekitEnabled = Boolean(data.livekit_enabled);
     }
   } catch {

@@ -15,7 +15,7 @@ from fastapi import (
     WebSocket,
 )
 from loguru import logger
-from pipecat.utils.run_context import set_current_run_id
+from api.utils.run_context import set_current_run_id
 from pydantic import BaseModel
 from starlette.websockets import WebSocketDisconnect
 

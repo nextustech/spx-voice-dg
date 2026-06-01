@@ -39,7 +39,7 @@ from pipecat.turns.user_mute import (
     CallbackUserMuteStrategy,
     MuteUntilFirstBotCompleteUserMuteStrategy,
 )
-from pipecat.utils.enums import EndTaskReason
+from api.utils.runtime_enums import EndTaskReason
 
 from api.enums import ToolCategory
 from api.services.workflow.dto import (

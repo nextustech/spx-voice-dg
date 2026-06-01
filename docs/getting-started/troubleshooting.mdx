@@ -11,11 +11,12 @@ Check the build logs for the `api` or `ui` service.
 
 Common causes:
 
-- The `pipecat` submodule was not available to the build context.
+- The Docker build context did not include all committed source files.
 - The server ran out of memory during the Next.js build.
 - Required secrets were not set in Coolify.
 
-Make sure the repository includes submodules, then redeploy.
+Make sure the latest commit is pushed to the branch Coolify is deploying, then
+redeploy.
 
 ## App Opens But API Calls Fail
 

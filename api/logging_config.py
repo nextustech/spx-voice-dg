@@ -3,8 +3,6 @@ import os
 import sys
 
 import loguru
-from pipecat.utils.run_context import run_id_var
-
 from api.constants import (
     ENVIRONMENT,
     LOG_COMPRESSION,
@@ -15,6 +13,7 @@ from api.constants import (
     SERIALIZE_LOG_OUTPUT,
 )
 from api.enums import Environment
+from api.utils.run_context import run_id_var
 from api.utils.worker import get_worker_id, is_worker_process
 
 # Track if logging has been initialized

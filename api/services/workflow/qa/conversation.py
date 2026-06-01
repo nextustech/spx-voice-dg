@@ -3,7 +3,7 @@
 from collections import OrderedDict
 from datetime import datetime
 
-from pipecat.utils.enums import RealtimeFeedbackType
+from api.utils.runtime_enums import RealtimeFeedbackType
 
 
 def _safe_parse_timestamp(event: dict) -> datetime | None:

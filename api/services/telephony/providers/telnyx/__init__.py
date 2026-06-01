@@ -17,7 +17,10 @@ from api.utils.common import get_backend_endpoints
 
 from .config import TelnyxConfigurationRequest, TelnyxConfigurationResponse
 from .provider import TelnyxProvider
-from .transport import create_transport
+async def create_transport(*args, **kwargs):
+    from .transport import create_transport as _create_transport
+
+    return await _create_transport(*args, **kwargs)
 
 TELNYX_API_BASE_URL = "https://api.telnyx.com/v2"
 
@@ -171,3 +174,4 @@ __all__ = [
     "TelnyxProvider",
     "create_transport",
 ]
+

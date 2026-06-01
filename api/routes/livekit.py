@@ -63,7 +63,7 @@ class LiveKitSIPDispatchRuleRequest(BaseModel):
 
 
 class LiveKitSettingsRequest(BaseModel):
-    voice_runtime: str = "pipecat"
+    voice_runtime: str = "livekit"
     livekit_url: str = ""
     livekit_client_url: str = ""
     livekit_api_key: str = ""
@@ -132,7 +132,7 @@ class VobizLiveKitSetupResponse(BaseModel):
 @router.get("/runtime", response_model=LiveKitRuntimeResponse)
 async def get_livekit_runtime() -> LiveKitRuntimeResponse:
     return LiveKitRuntimeResponse(
-        voice_runtime="livekit" if is_livekit_runtime() else "pipecat",
+        voice_runtime="livekit",
         livekit_enabled=is_livekit_runtime() and livekit_configured(),
     )
 

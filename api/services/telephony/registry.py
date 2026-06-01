@@ -83,12 +83,11 @@ class ProviderSpec:
         config_loader: Normalizes raw stored config into the dict shape the
             provider constructor expects. Replaces the old factory if/elif
             chain.
-        transport_factory: Async callable that creates the pipecat transport
+        transport_factory: Async callable that creates the media transport
             for an accepted WebSocket. Provider-specific kwargs (stream_sid,
             call_sid, etc.) are forwarded as ``**kwargs``.
         transport_sample_rate: Wire-format audio sample rate this provider
-            uses (e.g. 8000 for Twilio/Plivo, 16000 for Vonage). The pipecat
-            layer derives the full ``AudioConfig`` from this.
+            uses (e.g. 8000 for Twilio/Plivo, 16000 for Vonage).
         config_request_cls: Pydantic model for incoming save requests.
         config_response_cls: Pydantic model for outgoing (masked) responses.
         ui_metadata: Optional form metadata used by the telephony-config

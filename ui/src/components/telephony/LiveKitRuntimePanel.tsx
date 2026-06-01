@@ -25,12 +25,12 @@ import { Switch } from "@/components/ui/switch";
 import { useAuth } from "@/lib/auth";
 
 type LiveKitSettings = Omit<LiveKitSettingsResponse, "voice_runtime"> & {
-  voice_runtime: "pipecat" | "livekit";
+  voice_runtime: "livekit";
   livekit_api_secret?: string;
 };
 
 const emptySettings: LiveKitSettings = {
-  voice_runtime: "pipecat",
+  voice_runtime: "livekit",
   livekit_url: "",
   livekit_client_url: "",
   livekit_api_key: "",
@@ -65,8 +65,7 @@ export function LiveKitRuntimePanel({ onSaved }: { onSaved?: () => void | Promis
       setSettings({
         ...emptySettings,
         ...response.data,
-        voice_runtime:
-          response.data?.voice_runtime === "livekit" ? "livekit" : "pipecat",
+        voice_runtime: "livekit",
         livekit_api_secret: "",
       });
     } catch (error) {
@@ -92,7 +91,7 @@ export function LiveKitRuntimePanel({ onSaved }: { onSaved?: () => void | Promis
     try {
       const token = await getAccessToken();
       const body = {
-        voice_runtime: settings.voice_runtime,
+        voice_runtime: "livekit",
         livekit_url: settings.livekit_url,
         livekit_client_url: settings.livekit_client_url,
         livekit_api_key: settings.livekit_api_key,
@@ -112,8 +111,7 @@ export function LiveKitRuntimePanel({ onSaved }: { onSaved?: () => void | Promis
       setSettings({
         ...emptySettings,
         ...response.data,
-        voice_runtime:
-          response.data?.voice_runtime === "livekit" ? "livekit" : "pipecat",
+        voice_runtime: "livekit",
         livekit_api_secret: "",
       });
       toast.success("LiveKit runtime saved");
@@ -151,7 +149,7 @@ export function LiveKitRuntimePanel({ onSaved }: { onSaved?: () => void | Promis
         <div className="flex flex-wrap justify-end gap-2">
           <Badge variant={ready ? "default" : "outline"} className="gap-1">
             {ready ? <CheckCircle2 className="h-3 w-3" /> : <XCircle className="h-3 w-3" />}
-            {ready ? "LiveKit ready" : livekitOn ? "LiveKit incomplete" : "Pipecat"}
+            {ready ? "LiveKit ready" : "LiveKit incomplete"}
           </Badge>
           {settings.worker_managed_by_api && (
             <Badge variant={settings.worker_running ? "secondary" : "outline"}>
@@ -163,16 +161,15 @@ export function LiveKitRuntimePanel({ onSaved }: { onSaved?: () => void | Promis
       <CardContent className="space-y-5">
         <div className="flex items-center justify-between rounded border p-3">
           <div className="space-y-0.5">
-            <Label className="text-sm">Use LiveKit</Label>
+            <Label className="text-sm">LiveKit runtime</Label>
             <p className="text-xs text-muted-foreground">
-              Off keeps the existing Pipecat runtime.
+              LiveKit is the deployable runtime for SPX Voice.
             </p>
           </div>
           <Switch
-            checked={livekitOn}
-            onCheckedChange={(checked) =>
-              update("voice_runtime", checked ? "livekit" : "pipecat")
-            }
+            checked
+            disabled
+            onCheckedChange={() => update("voice_runtime", "livekit")}
           />
         </div>
 

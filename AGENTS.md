@@ -1,6 +1,6 @@
 # SPX Voice - Project Overview
 
-SPX Voice is an open-source voice AI platform for building and deploying conversational agents with telephony, WebRTC, Pipecat, and LiveKit support.
+SPX Voice is an open-source voice AI platform for building and deploying conversational agents with telephony and LiveKit support.
 
 ## Project Structure
 
@@ -10,7 +10,6 @@ spx-voice/
 +-- ui/               # Frontend - Next.js application
 +-- scripts/          # Helper scripts for local development
 +-- docs/             # Documentation
-+-- pipecat/          # Pipecat framework (git submodule)
 +-- docker-compose.yaml       # Production/OSS deployment
 +-- docker-compose-local.yaml # Local development services
 ```
@@ -22,7 +21,7 @@ spx-voice/
 - **Database**: PostgreSQL with SQLAlchemy (async)
 - **Cache/Queue**: Redis with ARQ for background tasks
 - **Storage**: MinIO (S3-compatible) for audio files
-- **Voice runtimes**: Pipecat and LiveKit
+- **Voice runtime**: LiveKit
 
 ## Upstream Compatibility
 

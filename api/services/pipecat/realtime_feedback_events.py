@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from pipecat.utils.enums import RealtimeFeedbackType
+from api.utils.runtime_enums import RealtimeFeedbackType
 
 
 def build_node_transition_event(

@@ -127,9 +127,9 @@ Change them before any shared or production deployment.
 
 ## LiveKit And Vobiz Setup
 
-The stack starts with `VOICE_RUNTIME=pipecat`. To use the LiveKit runtime, add
-LiveKit settings through the UI at `Telephony Configurations`, or provide them
-as environment variables before starting the stack.
+The stack starts with `VOICE_RUNTIME=livekit`. Add LiveKit settings through the
+UI at `Telephony Configurations`, or provide them as environment variables
+before starting the stack.
 
 Minimum LiveKit variables:
 
@@ -284,8 +284,6 @@ api/       FastAPI backend, workers, integrations, LiveKit runtime
 ui/        Next.js 15 frontend
 scripts/   Local setup and service scripts
 docs/      Documentation source
-pipecat/   Pipecat submodule
-deploy/    Deployment templates
 ```
 
 ## License

@@ -90,8 +90,8 @@ from pipecat.turns.user_stop import (
     TurnAnalyzerUserTurnStopStrategy,
 )
 from pipecat.turns.user_turn_strategies import UserTurnStrategies
-from pipecat.utils.enums import EndTaskReason, RealtimeFeedbackType
-from pipecat.utils.run_context import set_current_org_id, set_current_run_id
+from api.utils.runtime_enums import EndTaskReason, RealtimeFeedbackType
+from api.utils.run_context import set_current_org_id, set_current_run_id
 
 # Setup tracing if enabled
 ensure_tracing()

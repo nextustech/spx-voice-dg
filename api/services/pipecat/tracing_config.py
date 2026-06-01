@@ -16,10 +16,8 @@ _org_routing_exporter = None
 
 
 def _get_current_org_id():
-    try:
-        from pipecat.utils.run_context import get_current_org_id
-    except ModuleNotFoundError:
-        return None
+    from api.utils.run_context import get_current_org_id
+
     return get_current_org_id()
 
 

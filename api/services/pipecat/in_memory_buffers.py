@@ -11,7 +11,7 @@ from api.services.pipecat.realtime_feedback_events import (
     stamp_realtime_feedback_event,
 )
 from api.utils.transcript import generate_transcript_text as _generate_transcript_text
-from pipecat.utils.enums import RealtimeFeedbackType
+from api.utils.runtime_enums import RealtimeFeedbackType
 
 
 class InMemoryAudioBuffer:

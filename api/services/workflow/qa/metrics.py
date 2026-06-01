@@ -1,6 +1,6 @@
 """Call metrics computation from raw event logs."""
 
-from pipecat.utils.enums import RealtimeFeedbackType
+from api.utils.runtime_enums import RealtimeFeedbackType
 
 
 def compute_call_metrics(

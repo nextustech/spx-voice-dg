@@ -11,7 +11,10 @@ from api.services.telephony.registry import (
 
 from .config import ARIConfigurationRequest, ARIConfigurationResponse
 from .provider import ARIProvider
-from .transport import create_transport
+async def create_transport(*args, **kwargs):
+    from .transport import create_transport as _create_transport
+
+    return await _create_transport(*args, **kwargs)
 
 
 def _config_loader(value: Dict[str, Any]) -> Dict[str, Any]:
@@ -84,3 +87,4 @@ __all__ = [
     "ARIProvider",
     "create_transport",
 ]
+

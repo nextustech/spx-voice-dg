@@ -4,12 +4,6 @@ FROM python:3.12-slim AS builder
 
 WORKDIR /app
 
-# Install git in builder stage (needed for pip install from git)
-RUN apt-get update && apt-get install -y \
-    git \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
 # Copy and install requirements
 COPY api/requirements.txt .
 
@@ -17,18 +11,6 @@ COPY api/requirements.txt .
 RUN pip install --user --no-cache-dir -r requirements.txt && \
     # Clean up pip cache after installation
     rm -rf /root/.cache/pip
-
-# Copy and install pipecat from local submodule
-COPY pipecat /tmp/pipecat
-RUN pip install --user --no-cache-dir '/tmp/pipecat[cartesia,deepgram,openai,elevenlabs,groq,google,azure,sarvam,soundfile,silero,webrtc,speechmatics,openrouter,camb,mcp]' && \
-    # Swap opencv-python (pulled by pipecat[webrtc]) for opencv-python-headless
-    # to drop X11/Qt dependencies that otherwise require libxcb etc. in runner.
-    pip uninstall -y opencv-python && \
-    pip install --user --no-cache-dir opencv-python-headless && \
-    # Pre-download NLTK punkt_tab tokenizer data (required by pipecat at runtime)
-    python -c "import nltk; nltk.download('punkt_tab', quiet=True)" && \
-    # Clean up pip cache and temporary pipecat directory
-    rm -rf /root/.cache/pip /tmp/pipecat
 
 # Strip cache files, test/example dirs, and type stubs from installed packages
 RUN find /root/.local -type f -name '*.pyc' -delete && \
@@ -72,9 +54,6 @@ COPY --from=node:22-slim /usr/local/bin/node /usr/local/bin/node
 # Copy Python packages from builder stage
 COPY --from=builder /root/.local /root/.local
 
-# Copy NLTK data (punkt_tab tokenizer) from builder stage
-COPY --from=builder /root/nltk_data /root/nltk_data
-
 # Make sure scripts in .local are available
 ENV PATH=/root/.local/bin:$PATH
 
@@ -91,8 +70,7 @@ COPY ./scripts/start_services_docker.sh ./scripts/start_services_docker.sh
 # The validator runs as a short-lived subprocess from api/mcp_server/ts_bridge.py.
 COPY --from=ts-deps /ts_validator/node_modules ./api/mcp_server/ts_validator/node_modules
 
-# Product documentation — read at runtime by the MCP docs tools
-# (search_dograh_docs / fetch_dograh_doc) so agents can learn Dograh.
+# Product documentation read at runtime by the MCP docs tools.
 COPY ./docs ./docs
 
 ENV PYTHONPATH=/app

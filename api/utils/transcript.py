@@ -1,6 +1,6 @@
 from typing import List
 
-from pipecat.utils.enums import RealtimeFeedbackType
+from api.utils.runtime_enums import RealtimeFeedbackType
 
 
 def generate_transcript_text(events: List[dict]) -> str:

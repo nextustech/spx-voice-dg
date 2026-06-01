@@ -8,7 +8,7 @@ import json
 
 from fastapi import APIRouter, Request
 from loguru import logger
-from pipecat.utils.run_context import set_current_run_id
+from api.utils.run_context import set_current_run_id
 
 from api.db import db_client
 from api.services.telephony.factory import get_telephony_provider_for_run

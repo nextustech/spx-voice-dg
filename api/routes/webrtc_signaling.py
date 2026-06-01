@@ -26,7 +26,7 @@ from aiortc.sdp import candidate_from_sdp
 from fastapi import APIRouter, Depends, HTTPException, WebSocket, WebSocketDisconnect
 from loguru import logger
 from pipecat.transports.smallwebrtc.connection import SmallWebRTCConnection
-from pipecat.utils.run_context import set_current_org_id, set_current_run_id
+from api.utils.run_context import set_current_org_id, set_current_run_id
 from starlette.websockets import WebSocketState
 
 from api.constants import ENVIRONMENT, FORCE_TURN_RELAY

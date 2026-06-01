@@ -41,7 +41,7 @@ DISABLE_HOSTED_CLOUD = os.getenv("DISABLE_HOSTED_CLOUD", "true").lower() == "tru
 
 # Voice runtime selection. Keep Pipecat as the default runtime so existing
 # deployments do not change behavior until explicitly switched.
-VOICE_RUNTIME = os.getenv("VOICE_RUNTIME", "pipecat").strip().lower()
+VOICE_RUNTIME = os.getenv("VOICE_RUNTIME", "livekit").strip().lower()
 LIVEKIT_URL = os.getenv("LIVEKIT_URL", "").strip()
 LIVEKIT_CLIENT_URL = os.getenv("LIVEKIT_CLIENT_URL", "").strip()
 LIVEKIT_API_KEY = os.getenv("LIVEKIT_API_KEY", "").strip()

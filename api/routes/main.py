@@ -22,11 +22,9 @@ from api.routes.telephony import router as telephony_router
 from api.routes.tool import router as tool_router
 from api.routes.turn_credentials import router as turn_credentials_router
 from api.routes.user import router as user_router
-from api.routes.webrtc_signaling import router as webrtc_signaling_router
 from api.routes.workflow import router as workflow_router
 from api.routes.workflow_embed import router as workflow_embed_router
 from api.routes.workflow_recording import router as workflow_recording_router
-from api.routes.workflow_text_chat import router as workflow_text_chat_router
 from api.services.integrations import all_routers
 
 router = APIRouter(
@@ -37,7 +35,6 @@ router = APIRouter(
 router.include_router(telephony_router)
 router.include_router(superuser_router)
 router.include_router(workflow_router)
-router.include_router(workflow_text_chat_router)
 router.include_router(user_router)
 router.include_router(campaign_router)
 router.include_router(credentials_router)
@@ -47,7 +44,6 @@ router.include_router(s3_router)
 router.include_router(service_keys_router)
 router.include_router(organization_usage_router)
 router.include_router(reports_router)
-router.include_router(webrtc_signaling_router)
 router.include_router(turn_credentials_router)
 router.include_router(public_embed_router)
 router.include_router(public_agent_router)
@@ -101,6 +97,6 @@ async def health() -> HealthResponse:
         turn_enabled=bool(TURN_SECRET),
         force_turn_relay=FORCE_TURN_RELAY,
         hosted_services_enabled=not DISABLE_HOSTED_CLOUD,
-        voice_runtime="livekit" if is_livekit_runtime() else "pipecat",
+        voice_runtime="livekit",
         livekit_enabled=is_livekit_runtime() and livekit_configured(),
     )
