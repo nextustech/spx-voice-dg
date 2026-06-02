@@ -88,6 +88,9 @@ const PROVIDERS_WITHOUT_API_KEYS = new Set([
     "speaches",
 ]);
 
+const GOOGLE_REALTIME_KEY_ERROR =
+    "Google/Gemini realtime needs a Google AI Studio API key. The key entered looks like a different SPX Voice/Dograh key.";
+
 function hasConfiguredApiKey(apiKey: ApiKeyValue): boolean {
     if (Array.isArray(apiKey)) {
         return apiKey.some(key => key.trim().length > 0);
@@ -466,6 +469,15 @@ export function ServiceConfigurationForm({
         return globalConfig?.provider === provider && hasConfiguredApiKey(globalConfig.api_key as ApiKeyValue);
     };
 
+    const getRealtimeProviderKeyError = (provider: string): string | null => {
+        if (provider !== "google_realtime") return null;
+        const hasWrongPrefix = apiKeys.realtime.some(key => {
+            const value = key.trim().toLowerCase();
+            return value.startsWith("dgr") || value.startsWith("mps");
+        });
+        return hasWrongPrefix ? GOOGLE_REALTIME_KEY_ERROR : null;
+    };
+
     const getRealtimeOverrideError = (): string | null => {
         if (mode !== 'override' || !isRealtime) return null;
 
@@ -488,6 +500,10 @@ export function ServiceConfigurationForm({
         if (!realtimeProvider) {
             return "Select a realtime provider before saving realtime mode.";
         }
+        const providerKeyError = getRealtimeProviderKeyError(realtimeProvider);
+        if (providerKeyError) {
+            return providerKeyError;
+        }
         if (
             providerRequiresApiKey("realtime", realtimeProvider) &&
             !hasEnteredApiKey("realtime") &&
@@ -505,6 +521,10 @@ export function ServiceConfigurationForm({
             const realtimeProvider = serviceProviders.realtime;
             if (!realtimeProvider) {
                 return "Select a realtime provider before saving realtime mode.";
+            }
+            const providerKeyError = getRealtimeProviderKeyError(realtimeProvider);
+            if (providerKeyError) {
+                return providerKeyError;
             }
             if (providerRequiresApiKey("realtime", realtimeProvider) && !hasEnteredApiKey("realtime")) {
                 return "Enter a Realtime Model API key before saving realtime mode.";

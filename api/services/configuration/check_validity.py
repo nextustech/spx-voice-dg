@@ -217,6 +217,17 @@ class UserConfigurationValidator:
         return True
 
     def _check_google_api_key(self, model: str, api_key: str) -> bool:
+        key = (api_key or "").strip()
+        if key.startswith("dgr"):
+            raise ValueError(
+                "Google/Gemini realtime needs a Google AI Studio API key. "
+                "The value entered looks like an SPX Voice/Dograh key (dgr...)."
+            )
+        if key.startswith("mps"):
+            raise ValueError(
+                "Google/Gemini realtime needs a Google AI Studio API key. "
+                "The value entered looks like a Dograh service key (mps...)."
+            )
         return True
 
     def _check_azure_api_key(self, model: str, api_key: str) -> bool:

@@ -82,6 +82,31 @@ async def test_realtime_validator_requires_realtime_not_stt_tts():
 
 
 @pytest.mark.asyncio
+async def test_realtime_validator_rejects_spx_key_for_google_realtime():
+    payload = {
+        **REALTIME_ONLY_PAYLOAD,
+        "realtime": {
+            **REALTIME_ONLY_PAYLOAD["realtime"],
+            "api_key": "dgr_wrong_slot",
+        },
+    }
+    config = UserConfiguration.model_validate(payload)
+
+    with pytest.raises(ValueError) as exc:
+        await UserConfigurationValidator().validate(config)
+
+    assert exc.value.args[0] == [
+        {
+            "model": "realtime",
+            "message": (
+                "Google/Gemini realtime needs a Google AI Studio API key. "
+                "The value entered looks like an SPX Voice/Dograh key (dgr...)."
+            ),
+        }
+    ]
+
+
+@pytest.mark.asyncio
 async def test_realtime_validator_skips_stale_llm_by_default():
     payload = {
         **REALTIME_ONLY_PAYLOAD,
